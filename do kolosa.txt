@@ -1,0 +1,255 @@
+1.Będzie podane kilka wyrażen i będzie trzeba podać czy to stała, zmienna, czy złożona i czy jest poprawna.
+
+TERMY ZŁOŻONE: 
+
+STALE: symboliczne nazwy obiektów, łańcuch z samych liter i cyfr zaczynający się z małej litery.
+L.C i rzeczywiste sa traktowane jako stałe, w pojedyncze apostrofy to też stałe, pojedyncze znaki to też stałe, pary nawiasów to też stałe, znak podłogi to też stała.
+
+ZMIENNE: symboliczne przedstawianie obiektów, które nie są w danej chwili znane, zaczynają się od dużej litery lub od znaku podłogi. Pojedyńczy znak podłogi to też zmienna - zmienna anonimowa - czy wgle istnieje jakiś obiekt spełniający
+dane związki. (X,Y,Z, Wala_szek, _ala, _)
+
+TERMY: nazwa funktora zaczyna się z małej litery
+
+marcin - stała
+_przedmiot - zmienna
+Waga - zmienna
+zmienna1 - stała
+'słowo drugie' - stała (spacja może występować)
+kod pocztowy - niepoprawne (spacja występuje i dlatego)
+jem_chleb - stała
+Rodzic(X) - niepoprawne (symbol funkcyjny musi się zaczynać z małej litery)
+and(rodzic(X),dobry(X)) - term złożony 
+osoba(jan) - term złożony
+
+
+=====================================================================================================================
+
+
+
+
+2.Podstawowy program, zapisane stwierdzenia i je zapisać , ile klauzul, ile definicji i relacji, ile faktow ile reguł, i cele do programu.
+
+Ewa, Marcin, Piotr i Maria to ludzie.
+Turystyka to hobby Ewy i Piotra.
+Muzyka to hobby Marcina i Piotra.
+Maria ma takie samo hobby jak Piotr.
+Malarstwo to hobby Ewy i Marii.
+Dwie osoby się lubią jeżeli mają takie samo hobby.
+
+Trzeba zdefiniować predykaty osoba 1 arg, hobby 2 arg i lubi 2 arg
+
+PROGRAM:
+osoba(ewa).
+osoba(piotr).
+osoba(marcin).
+osoba(maria).
+hobby(ewa,turystyka).
+hobby(piotr,turystyka).
+hobby(piort,muzyka).
+hobby(marcin,muzyka).
+hobby(ewa,malarstwo).
+hobby(maria,malarstwo).
+hobby(maria, X):-hobby(piotr,X)     -   od prawej do lewej czytamy, jezeli cos jest hobby piotra to jest i marii. :- to implikacja (REGUŁA)
+lubi(X,Y):-hobby(X,Z),osoby(Y,Z) - (REGUŁA)
+
+Mamy:
+12 - klauzul
+3 definicje relacji (osoba,hobby,lubi)
+prydykaty (osoba, lubi, hobby)
+10 faktów
+2 reguły
+
+Następnie 4 cele do zrobienia:
+- czyim hobby jest muzyka:  ?- hobby(X,muzyka).
+- co jest hobby ewy: ?- hobby(ewa,Y).
+- czy maria ma jakies hobby: ?- hobby(maria,_)
+- jakie osoby sie lubia: ?- lubi(X,Y).
+
+=====================================================================================================================
+
+
+
+3.Uzgadnianie list ze sobą.
+
+[a,b,c,d] podział na głowe i ogon
+H - głowa
+T - ogon
+H=1 element listy czyli "a".
+T= pozostałe elementy =[b,c,d]
+[X|T] - pionowa kreska oznacza podział na głowę i ogon
+[X,Y|T] - pierwszy el to X drugi el to Y
+
+[1] - [X|T]
+X=1   T=[]
+
+Głowa za głowę i ogon za ogon podstawiamy.
+
+=====================================================================================================================
+
+
+
+[X,Y|T]	[2]
+ druga lista nie posiada drugiego elementu i nie da się uzgodnić, posiada zbyt mało elementów.
+
+
+=====================================================================================================================
+
+
+
+[[1,2],[3]] [X,Y|T]
+
+X=[1,2]	 Y=[3]	T=[]
+
+
+=====================================================================================================================
+
+
+
+[[a]]	[X|T]
+
+X=[a]	T=[]
+
+
+=====================================================================================================================
+
+
+
+[ala,ania,marcin]	[X,Y|T]
+
+X=ala , Y=ania , T=[marcin]
+
+
+=====================================================================================================================
+
+
+
+Elementami list moga być termy:
+
+[g(X),a,f(b)]		[g(f(Z)),Z,Y]
+
+za X podstawiamy f(Z)
+za Y podstawiamy f(b)
+za Z podstawiamy a
+potem za X podstawimy f(a)
+wtedy już listy będą ze sobą uzgodnione
+
+
+
+
+
+=====================================================================================================================
+
+
+
+
+[X,a,f(Z)]	[g(Y),Y,X]
+
+nie da się uzgodnić bo na raz za X możemy podstawić 2 rzeczy.
+
+
+
+=====================================================================================================================
+
+
+
+[g(Z),b,f(X)]		[X,Z,f(b)]
+
+za X podstawiamy g(Z) ==>g(b)
+za Z podstawiamy b
+za Y podstawiamy b
+
+
+=====================================================================================================================
+
+
+Kwadrat list(+L1,?L2)
+spełniony kiedy elementy listy L2 są kwadratami elementów listy L1; L1 jest listą liczbową
+
+warunek konczacy rekurencji: kwadrat listy pustej jest listą pustą
+
+kwadrat_listy([],[])
+rekurencja:
+
+kwadrat_listy([H1|T1],[H2|T2]);-
+H2 is H1*H1
+kwadrat_listy(T1,T2).
+
+
+=====================================================================================================================
+
+
+
+
+Oprócz zdefiniowania takiego prydykatu i 2 przykładowe cele sobie wymyślić i cele z odpowiedziami wykonac.
+
+[2,4]
+[4,16]
+
+?-kwadrat_listy([2,4],[4,16]).  - przykładowy cel
+TRUE
+
+
+?-kwadrat_listy([5,6],X). jaka lista jest kwadratem listy [5,6]
+X=[25,36]
+
+
+2 przykłady celi z odpowiedziami trzeba bedze zapisac.
+
+
+=====================================================================================================================
+
+
+
+lista_wieksza o 2 (L1,L2) - spełniamy, gdy
+elementy listy L2 są elementy listy L1 powiękoszone o 2 
+[1,3]
+[3,5]
+
+
+
+
+
+
+
+=====================================================================================================================
+
+Lista_razy_piec(L1,L2) spełniony gdy elementy listy L2 to L1 *5.
+[1,5]
+[5,25]
+
+
+lista_razy5([L1|H1],[L2|H2]):-
+H2 is H1*5
+lista_razy5(H1,H2).
+
+
+
+=====================================================================================================================
+
+szescian_lista(L1,L2) - spełniony gdy elementy listy L2 są elementami L1 podniesionymi do potęgi 3
+
+szescian_lista([],[])/szescian_lista([H1|T1],[H2,T2])
+H2 is H1*H1*H1
+szescian_lista(T1,T2).
+
+?-szescian_lista([2,3],[3,27]).
+True
+
+?-szescian_lista([1,4],[1,64]).
+
+
+=====================================================================================================================
+Konkatynacja, połączenie liczb 
+L1=[1,2]
+L2=[3,4]
+
+L3=[1,2,3,4] TEGO NIE BEDZIE NA KOLOKWIUM MOWILA PANIE HEHE
+
+glowa listy L3 jest glowa listy L1
+ogon listy L3 jest polaczeniem ogona listy L1 z lista L2
+
+konkat([H1|T1],L2,[H1|T3]);-konkat(T1,L2,T3)
+
+
+
+
